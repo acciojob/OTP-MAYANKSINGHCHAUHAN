@@ -1,19 +1,23 @@
-const inputs = document.querySelectorAll(".code");
+//your JS code here. If required.
 
-inputs.forEach((input, index) => {
-    input.addEventListener("input", (e) => {
-        if (e.inputType !== "deleteContentBackward" && input.value) {
-            if (index < inputs.length - 1) {
-                inputs[index + 1].focus();
-            }
-        }
-    });
+const codes = document.querySelectorAll(".code");
 
-    input.addEventListener("keydown", (e) => {
-        if (e.key === "Backspace" && !input.value) {
-            if (index > 0) {
-                inputs[index - 1].focus();
-            }
-        }
-    });
+
+codes.forEach((code, i)=>{
+	codes[0].focus();
+	code.addEventListener("input", (e) => {
+		const currentInput = e.target;
+		const nextInput = codes[i + 1];
+
+		if(currentInput.value && nextInput){
+			nextInput.focus();
+		};
+	});
+
+	code.addEventListener("keydown", (e) => {
+		let prevInput = codes[i - 1]; 
+		if(e.code === "Backspace" && !e.target.value && prevInput){
+			prevInput.focus();
+		}
+	});
 });
